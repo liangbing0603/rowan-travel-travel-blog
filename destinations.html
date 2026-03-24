@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅行目的地 - Wanderlust Adventures</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .destinations-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 20px 80px;
+            margin-top: 70px;
+        }
+        
+        .destinations-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .destinations-filter {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin: -40px auto 60px;
+            max-width: 1000px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 10px 25px;
+            background: var(--light-gray);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .filter-btn.active {
+            background: var(--primary-green);
+            color: white;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .destination-detail {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+        }
+        
+        .destination-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        
+        .destination-info {
+            padding: 40px;
+            background: var(--light-gray);
+        }
+        
+        .destination-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .highlight-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .highlight-icon {
+            font-size: 24px;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+        
+        .destination-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .travel-tips {
+            background: #fff9e6;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            border-left: 5px solid #ffc107;
+        }
+        
+        @media (max-width: 768px) {
+            .destinations-hero h1 {
+                font-size: 36px;
+            }
+            
+            .destination-header {
+                grid-template-columns: 1fr;
+            }
+            
+            .destinations-filter {
+                padding: 20px;
+                margin: -20px 20px 40px;
+            }
+            
+            .filter-options {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span>Wanderlust Adventures</span>
+            </a>
+            <div class="nav-menu">
+                <a href="index.html">首页</a>
+                <a href="destinations.html" class="active">目的地</a>
+                <a href="blog.html">博客</a>
+                <a href="about.html">关于</a>
+                <a href="contact.html">联系</a>
+                <a href="consultation.html" class="nav-cta">旅行咨询</a>
+            </div>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 目的地页头 -->
+    <section class="destinations-hero">
+        <div class="container">
+            <h1>🌏 探索世界目的地</h1>
+            <p style="font-size: 20px; max-width: 800px; margin: 0 auto;">从亚洲的古都到欧洲的城堡，从非洲的沙漠到美洲的雨林，发现最适合你的旅行目的地。</p>
+        </div>
+    </section>
+
+    <!-- 目的地筛选 -->
+    <div class="container">
+        <div class="destinations-filter">
+            <h3 style="text-align: center; margin-bottom: 25px; color: var(--forest-dark);">筛选目的地</h3>
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="asia">亚洲</button>
+                <button class="filter-btn" data-filter="europe">欧洲</button>
+                <button class="filter-btn" data-filter="africa">非洲</button>
+                <button class="filter-btn" data-filter="america">美洲</button>
+                <button class="filter-btn" data-filter="oceania">大洋洲</button>
+                <button class="filter-btn" data-filter="budget">预算友好</button>
+                <button class="filter-btn" data-filter="family">家庭旅行</button>
+                <button class="filter-btn" data-filter="adventure">冒险体验</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 目的地详情 -->
+    <div class="container">
+        <!-- 日本京都 -->
+        <div class="destination-detail fade-in" id="kyoto" data-categories="asia,budget,family">
+            <div class="destination-header">
+                <div style="background: linear-gradient(45deg, #4facfe, #00f2fe); padding: 40px; color: white; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 20px;">🏯</div>
+                        <h2 style="font-size: 36px; margin-bottom: 10px;">日本·京都</h2>
+                        <p style="opacity: 0.9;">古都的魅力，千年文化的传承</p>
+                    </div>
+                </div>
+                <div class="destination-info">
+                    <h3 style="color: var(--forest-dark); margin-bottom: 20px;">目的地简介</h3>
+                    <p>京都，日本的古都，拥有超过1000座寺庙和神社。这里完美保留了日本传统文化，从茶道、和服到庭院设计，处处体现着日式美学的精髓。</p>
+                    
+                    <div class="destination-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">🌸</div>
+                            <h4>最佳季节</h4>
+                            <p>春季（3-5月）<br>秋季（9-11月）</p>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">💰</div>
+                            <h4>预算水平</h4>
+                            <p>中等<br>¥800-1500/天</p>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">⏱️</div>
+                            <h4>建议时长</h4>
+                            <p>4-7天<br>深度体验</p>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">👍</div>
+                            <h4>适合人群</h4>
+                            <p>文化爱好者<br>摄影爱好者</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="padding: 40px;">
+                <h3 style="color: var(--forest-dark); margin-bottom: 25px;">📋 必游景点</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">伏见稻荷大社</h4>
+                        <p style="color: #666;">成千上万的红色鸟居构成的神秘通道，是京都最具代表性的景观之一。</p>
+                        <div style="margin-top: 15px; color: var(--primary-green); font-weight: 500;">
+                            <i class="fas fa-star"></i> 推荐指数：★★★★★
+                        </div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">清水寺</h4>
+                        <p style="color: #666;">世界文化遗产，京都最古老的寺院，春季樱花和秋季红叶尤为壮观。</p>
+                        <div style="margin-top: 15px; color: var(--primary-green); font-weight: 500;">
+                            <i class="fas fa-star"></i> 推荐指数：★★★★★
+                        </div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">岚山竹林</h4>
+                        <p style="color: #666;">漫步在静谧的竹林中，感受自然与禅意的完美结合。</p>
+                        <div style="margin-top: 15px; color: var(--primary-green); font-weight: 500;">
+                            <i class="fas fa-star"></i> 推荐指数：★★★★☆
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="travel-tips">
+                    <h4 style="color: #856404; margin-bottom: 15px;"><i class="fas fa-lightbulb"></i> 旅行小贴士</h4>
+                    <ul style="color: #666; line-height: 1.8;">
+                        <li>购买京都巴士一日券（600日元）可以无限次乘坐市内巴士</li>
+                        <li>许多寺庙需要脱鞋进入，建议穿容易穿脱的鞋子</li>
+                        <li>樱花季和红叶季需要提前3-6个月预订住宿</li>
+                        <li>尝试怀石料理和抹茶甜点，体验正宗京都味道</li>
+                        <li>租借和服在古街拍照，感受传统日本文化</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="consultation.html" class="btn btn-primary" style="padding: 15px 40px; font-size: 18px;">
+                        <i class="fas fa-plane"></i> 咨询京都旅行计划
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 冰岛雷克雅未克 -->
+        <div class="destination-detail fade-in" id="iceland" data-categories="europe,adventure">
+            <div class="destination-header">
+                <div style="background: linear-gradient(45deg, #43e97b, #38f9d7); padding: 40px; color: white; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 20px;">❄️</div>
+                        <h2 style="font-size: 36px; margin-bottom: 10px;">冰岛·雷克雅未克</h2>
+                        <p style="opacity: 0.9;">世界尽头的奇幻之旅</p>
+                    </div>
+                </div>
+                <div class="destination-info">
+                    <h3 style="color: var(--forest-dark); margin-bottom: 20px;">目的地简介</h3>
+                    <p>冰岛，北大西洋上的火山岛国，拥有令人惊叹的自然景观：冰川、火山、瀑布、温泉和北极光。这里是冒险家和自然爱好者的天堂。</p>
+                    
+                    <div class="destination-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">🌌</div>
+                            <h4>最佳季节</h4>
+                            <p>冬季（9-3月）<br>看北极光</p>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">💰</div>
+                            <h4>预算水平</h4>
+                            <p>较高<br>¥1200-2500/天</p>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">⏱️</div>
+                            <h4>建议时长</h4>
+                            <p>7-14天<br>环岛旅行</p>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">👍</div>
+                            <h4>适合人群</h4>
+                            <p>冒险爱好者<br>摄影发烧友</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="padding: 40px;">
+                <h3 style="color: var(--forest-dark); margin-bottom: 25px;">🌋 自然奇观</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">黄金圈</h4>
+                        <p style="color: #666;">包含Þingvellir国家公园、Geysir间歇泉和Gullfoss瀑布的一日游路线。</p>
+                        <div style="margin-top: 15px; color: var(--primary-green); font-weight: 500;">
+                            <i class="fas fa-star"></i> 必游景点
+                        </div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">蓝湖温泉</h4>
+                        <p style="color: #666;">地热海水温泉，富含矿物质，在冰雪中泡温泉是独特的体验。</p>
+                        <div style="margin-top: 15px; color: var(--primary-green); font-weight: 500;">
+                            <i class="fas fa-star"></i> 放松首选
+                        </div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">杰古沙龙冰河湖</h4>
+                        <p style="color: #666;">漂浮着冰山的冰川泻湖，可以乘坐游船近距离接触千年冰川。</p>
+                        <div style="margin-top: 15px; color: var(--primary-green); font-weight: 500;">
+                            <i class="fas fa-star"></i> 摄影圣地
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="travel-tips">
+                    <h4 style="color: #856404; margin-bottom: 15px;"><i class="fas fa-car"></i> 自驾游建议</h4>
+                    <ul style="color: #666; line-height: 1.8;">
+                        <li>冬季自驾务必租用四驱车并购买全险</li>
+                        <li>关注冰岛道路管理局网站了解路况</li>
+                        <li>加油站较少，看到加油站及时加油</li>
+                        <li>准备防风防水的户外装备</li>
+                        <li>下载Aurora Forecast App追踪北极光</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="consultation.html" class="btn btn-primary" style="padding: 15px 40px; font-size: 18px;">
+                        <i class="fas fa-snowflake"></i> 咨询冰岛冒险之旅
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 摩洛哥马拉喀什 -->
+        <div class="destination-detail fade-in" id="marrakech" data-categories="africa,adventure,budget">
+            <div class="destination-header">
+                <div style="background: linear-gradient(45deg, #fa709a, #fee140); padding: 40px; color: white; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 20px;">🏜️</div>
+                        <h2 style="font-size: 36px; margin-bottom: 10px;">摩洛哥·马拉喀什</h2>
+                        <p style="opacity: 0.9;">红色之城，北非的明珠</p>
+                    </div>
+                </div>
+                <div class="destination-info">
+                    <h3 style="color: var(--forest-dark); margin-bottom: 20px;">目的地简介</h3>
+                    <p>马拉喀什，摩洛哥的四大皇城之一，以其红色的城墙和建筑而闻名。这里融合了阿拉伯、柏柏尔和欧洲文化，充满异域风情。</p>
+                    
+                    <div class="destination-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">☀️</div>
+                            <h4>最佳季节</h4>
+                            <p>春季（3-5月）<br>秋季（9-11月）</p>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">💰</div>
+                            <h4>预算水平</h4>
+                            <p>经济<br>¥500-1000/天</p>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">⏱️</div>
+                            <h4>建议时长</h4>
+                            <p>3-5天<br>城市探索</p>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">👍</div>
+                            <h4>适合人群</h4>
+                            <p>文化探索者<br>美食爱好者</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="padding: 40px;">
+                <h3 style="color: var(--forest-dark); margin-bottom: 25px;">🕌 文化体验</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">杰马夫纳广场</h4>
+                        <p style="color: #666;">联合国世界文化遗产，白天是市场，夜晚变成美食广场和表演场地。</p>
+                        <div style="margin-top: 15px; color: var(--primary-green); font-weight: 500;">
+                            <i class="fas fa-star"></i> 夜生活中心
+                        </div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">马若雷勒花园</h4>
+                        <p style="color: #666;">YSL创始人设计的蓝色花园，充满艺术气息和异国情调。</p>
+                        <div style="margin-top: 15px; color: var(--primary-green); font-weight: 500;">
+                            <i class="fas fa-star"></i> 网红打卡地
+                        </div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">撒哈拉沙漠之旅</h4>
+                        <p style="color: #666;">从马拉喀什出发的3天2夜沙漠团，体验骆驼骑行和沙漠露营。</p>
+                        <div style="margin-top: 15px; color: var(--primary-green); font-weight: 500;">
+                            <i class="fas fa-star"></i> 一生必体验
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="travel-tips">
+                    <h4 style="color: #856404; margin-bottom: 15px;"><i class="fas fa-utensils"></i> 美食与购物</h4>
+                    <ul style="color: #666; line-height: 1.8;">
+                        <li>品尝塔吉锅、库斯库斯和薄荷茶等传统美食</li>
+                        <li>在露天市场学习讨价还价技巧（从报价的1/3开始）</li>
+                        <li>购买阿甘油、皮革制品和传统地毯作为纪念品</li>
+                        <li>参观香料市场，了解当地香料的使用</li>
+                        <li>体验传统摩洛哥浴（Hammam）</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="consultation.html" class="btn btn-primary" style="padding: 15px 40px; font-size: 18px;">
+                        <i class="fas fa-camera"></i> 咨询摩洛哥文化之旅
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 更多目的地提示 -->
+        <div style="text-align: center; padding: 60px 20px; background: linear-gradient(135deg, var(--primary-green), var(--forest-dark)); color: white; border-radius: 15px; margin-top: 40px;">
+            <h2 style="font-size: 32px; margin-bottom: 20px;">🌐 更多目的地即将更新</h2>
+            <p style="font-size: 18px; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                我正在整理更多目的地的详细攻略，包括意大利、泰国、新西兰、秘鲁等。
+                订阅我的新闻通讯，第一时间获取最新目的地推荐！
+            </p>
+            <a href="consultation.html" class="btn" style="background: white; color: var(--forest-dark); padding: 15px 40px; font-size: 18px;">
+                <i class="fas fa-compass"></i> 定制你的专属旅行路线
+            </a>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Wanderlust Adventures</h3>
+                <p>分享全球旅行经验，为你的下一次冒险提供灵感和实用建议。</p>
+                <p style="margin-top: 20px;">
+                    <i class="fas fa-map-marker-alt"></i> 基地：上海，中国<br>
+                    <i class="fas fa-globe"></i> 服务：全球旅行者
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>快速链接</h4>
+                <a href="index.html">首页</a>
+                <a href="destinations.html">目的地</a>
+                <a href="blog.html">博客</a>
+                <a href="about.html">关于我</a>
+                <a href="contact.html">联系</a>
+                <a href="consultation.html">旅行咨询</a>
+            </div>
+            <div class="footer-section">
+                <h4>联系方式</h4>
+                <p><i class="fas fa-phone"></i> 电话：19913662086</p>
+                <p><i class="fas fa-envelope"></i> 邮箱：19913662086@163.com</p>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp：+86 19913662086</p>
+                <p style="margin-top: 15px;">
+                    <i class="far fa-clock"></i> 咨询时间：<br>
+                    周一至周日 9:00-21:00
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>关注我</h4>
+                <div class="social-links">
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="微信"><i class="fab fa-weixin"></i></a>
+                    <a href="#" title="微博"><i class="fab fa-weibo"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" title="小红书"><i class="fab fa-pinterest"></i></a>
+                </div>
+                <p style="margin-top: 20px; font-size: 14px; color: #b0b0b0;">
+                    分享旅行故事，连接世界。
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Wanderlust Adventures. 保留所有权利。 | 由Rowan创建和维护</p>
+            <p style="margin-top: 10px; font-size: 12px; color: #888;">
+                <a href="#" style="color: #888; margin: 0 10px;">隐私政策</a> | 
+                <a href="#" style="color: #888; margin: 0 10px;">使用条款</a> | 
+                <a href="#" style="color: #888; margin: 0 10px;">Cookie政策</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // 目的地筛选功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const destinationItems = document.querySelectorAll('.destination-detail');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 更新活动按钮
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // 筛选目的地
+                    destinationItems.forEach(item => {
+                        if (filterValue === 'all') {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.classList.add('fade-in');
+                            }, 50);
+                        } else {
+                            const categories = item.getAttribute('data-categories');
+                            if (categories && categories.includes(filterValue)) {
+                                item.style.display = 'block';
+                                setTimeout(() => {
+                                    item.classList.add('fade-in');
+                                }, 50);
+                            } else {
+                                item.style.display = 'none';
+                                item.classList.remove('fade-in');
+                            }
+                        }
+                    });
+                });
+            });
+            
+            // 平滑滚动到锚点
+            const hash = window.location.hash;
+            if (hash) {
+                setTimeout(() => {
+                    const element = document.querySelector(hash);
+                    if (element) {
+                        const navHeight = document.querySelector('.navbar').offsetHeight;
+                        const targetPosition = element.offsetTop - navHeight - 20;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
