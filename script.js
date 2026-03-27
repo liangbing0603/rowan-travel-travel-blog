@@ -48,3 +48,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// 获取所有筛选按钮和所有目的地卡片
+const filterBtns = document.querySelectorAll('.filter-btn');
+const destinationCards = document.querySelectorAll('.destination-card');
+
+// 为每个按钮添加点击事件
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // 获取当前按钮的筛选值
+        const filterValue = btn.getAttribute('data-filter');
+        
+        // 更新按钮的激活状态
+        filterBtns.forEach(btn => btn.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // 遍历卡片，决定显示或隐藏
+        destinationCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            
+            if (filterValue === 'all' || filterValue === cardCategory) {
+                card.style.display = 'block';  // 或 'flex'，根据原始样式
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
