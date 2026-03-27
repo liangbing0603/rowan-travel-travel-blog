@@ -931,13 +931,3 @@ p {
         margin: 0 auto var(--spacing-sm);
     }
 }
-
-
-@media (max-width: 768px) {
-    .hero-video {
-        display: none;
-    }
-    .hero {
-        background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4') center/cover no-repeat;
-    }
-}
