@@ -573,7 +573,18 @@ p {
         opacity: 1;
         visibility: visible;
     }
-    
+    /* 手机端视频高度和适配（核心调整项） */
+.hero {
+    height: 80vh; /* 改这个数值就能调手机端页面高度，比如70vh/90vh */
+}
+.hero-video {
+    object-fit: cover;
+    width: 70%;
+    height: 70%;
+    top: 0;
+    left: 0;
+    transform: none;
+}
     .hero h1 {
         font-size: 2.2rem;
     }
