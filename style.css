@@ -931,13 +931,3 @@ p {
         margin: 0 auto var(--spacing-sm);
     }
 }
-
-
-@media (max-width: 768px) {
-    .hero-video {
-        display: none;
-    }
-    .hero {
-        background: url('https://res.cloudinary.com/dwk4kji2q/video/upload/v1774669604/滑雪-世界灿烂而盛大_o7wnhn.mp4;
-    }
-}
