@@ -586,7 +586,7 @@ p {
     .faq-section {
         padding: var(--spacing-lg);
     }
-
+/*英雄区文字垂直位置微调 */
     .hero-content {
     top: 65%;  /* 原为50%，可上下微调 */
 }
