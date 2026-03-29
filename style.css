@@ -586,6 +586,10 @@ p {
     .faq-section {
         padding: var(--spacing-lg);
     }
+
+    .hero-content {
+    top: 65%;  /* 原为50%，可上下微调 */
+}
  /* 手机端视频高度和适配（核心调整项） */
 .hero {
     height: 80vh; /* 改这个数值就能调手机端页面高度，比如70vh/90vh */
