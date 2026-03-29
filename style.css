@@ -600,6 +600,13 @@ p {
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    /* 手机端整体缩放（仅在此媒体查询内生效） */
+    body {        
+transform: scale(0.75);        
+transform-origin: top left;        
+width: 133.33%;    
+}
+}
 
 @media (max-width: 576px) {
     .container {
