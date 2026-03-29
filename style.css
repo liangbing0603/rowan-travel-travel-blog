@@ -587,7 +587,7 @@ p {
         padding: var(--spacing-lg);
     }
     .hero-content {
-        top: 65%;
+        top: 50%;
     }
     .hero {
         height: 90vh;
