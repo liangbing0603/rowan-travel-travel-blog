@@ -615,6 +615,11 @@ body {
         transform-origin: top left;
         width: 133.33%;  /* 抵消缩放，使内容宽度填满屏幕 */
     }
+/* 消除顶部空白*/
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { overflow-x: hidden; }
+</style>
 @media (max-width: 576px) {
     .container {
         padding: 0 var(--spacing-sm);
