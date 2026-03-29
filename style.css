@@ -616,10 +616,14 @@ body {
         width: 133.33%;  /* 抵消缩放，使内容宽度填满屏幕 */
     }
 /* 消除顶部空白*/
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { overflow-x: hidden; }
-</style>
+.navbar {
+        height: 60px;  /* 固定高度，与桌面端一致 */
+        padding: 0;    /* 如有需要调整内边距 */
+    }
+    .navbar .container {
+        height: 100%;
+    }
+}
 @media (max-width: 576px) {
     .container {
         padding: 0 var(--spacing-sm);
