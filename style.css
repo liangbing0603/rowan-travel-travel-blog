@@ -548,53 +548,77 @@ p {
 }
 
 @media (max-width: 768px) {
-    /* 容器宽度改为 100% */
-    .container {
+   @media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
         width: 100%;
-        padding: 0 15px;
-    }
-
-    /* 标题字体缩小 */
-    h1 {
-        font-size: 2rem;
-    }
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    /* 导航栏调整 */
-    .navbar .container {
+        background-color: var(--bg-primary);
         flex-direction: column;
-        gap: 10px;
+        align-items: center;
+        padding: var(--spacing-lg);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 999;
     }
-
-    /* 英雄区文字 */
-    .hero-content {
-        padding: 0 20px;
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
     }
     .hero h1 {
-        font-size: 1.8rem;
+        font-size: 2.2rem;
     }
-
-    /* 网格布局改为单列 */
-    .destinations-grid,
-    .blog-posts-grid,
-    .tips-grid {
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    .social-buttons {
         grid-template-columns: 1fr;
-        gap: 20px;
     }
-
-    /* 按钮和输入框全宽 */
-    .btn-primary,
-    .btn-secondary,
-    .newsletter-form input {
-        width: 100%;
-        text-align: center;
+    .contact-form,
+    .social-contact,
+    .faq-section {
+        padding: var(--spacing-lg);
     }
-
-    /* 侧边栏与主内容区叠放 */
-    .blog-layout {
-        grid-template-columns: 1fr;
+ /* 手机端视频高度和适配（核心调整项） */
+.hero {
+    height: 80vh; /* 改这个数值就能调手机端页面高度，比如70vh/90vh */
+}
+.hero-video {
+    object-fit: cover;
+    width:75%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: none;
+}
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+}
+body {
+        transform: scale(0.75);
+        transform-origin: top left;
+        width: 133.33%;  /* 抵消缩放，使内容宽度填满屏幕 */
+    }
+/* 消除顶部空白 */
+.navbar {
+        height: 60px;  /* 固定高度，与桌面端一致 */
+        padding: 0;    /* 如有需要调整内边距 */
+    }
+    .navbar .container {
+        height: 100%;
     }
 }
 @media (max-width: 576px) {
