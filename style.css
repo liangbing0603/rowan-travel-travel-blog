@@ -593,6 +593,12 @@ p {
         font-size: 0.8rem;
     }
 }
+ body {
+        transform: scale(0.75);
+        transform-origin: top left;
+        width: 133.33%;  /* 抵消缩放，使内容宽度填满屏幕 */
+    }
+}
 
 @media (max-width: 576px) {
     .container {
