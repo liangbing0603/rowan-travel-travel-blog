@@ -916,3 +916,46 @@ body {
     line-height: 1.6;
 }
 
+/* Responsive Contact Page */
+@media (max-width: 992px) {
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 768px) {
+    .social-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-form,
+    .social-contact,
+    .faq-section {
+        padding: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: var(--spacing-xl) 0;
+    }
+    
+    .page-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .info-icon {
+        margin: 0 auto var(--spacing-sm);
+    }
+}
