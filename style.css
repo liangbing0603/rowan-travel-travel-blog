@@ -590,7 +590,7 @@ p {
         top: 50%;    
     }
     .hero {        
-        height: 90vh;
+        height: 75vh;
         /* 关键修复：给顶部留出导航栏高度，不被遮挡 */
         padding-top: 70px;
     }
