@@ -602,9 +602,13 @@ p {
         left: 50%;        
         transform: translate(-50%, -50%);    
     }
+}
+body {
+        transform: scale(0.75);
+        transform-origin: top left;
+        width: 133.33%;  /* 抵消缩放，使内容宽度填满屏幕 */
+    }
 
-    /* ———— 重点！我删掉了你导致错位的代码 ———— */
-    /* body { transform: scale(0.75); ... }  已删除 */
 }
 
 @media (max-width: 576px) {
