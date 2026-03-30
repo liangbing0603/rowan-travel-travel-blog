@@ -597,7 +597,7 @@ p {
     .hero-video {        
         object-fit: cover;        
         width: 50%;        
-        height: 50%;        
+        height: 100%;        
         top: 50%;        
         left: 50%;        
         transform: translate(-50%, -50%); 
