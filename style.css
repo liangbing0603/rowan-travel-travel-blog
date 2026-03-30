@@ -596,21 +596,14 @@ p {
     }
     .hero-video {        
         object-fit: cover;        
-        width: 75%;        
-        height: 75%;        
+        width: 50%;        
+        height: 50%;        
         top: 50%;        
         left: 50%;        
         transform: translate(-50%, -50%); 
         object-fit: cover;
         border-radius: 12px;
     }
-}
-body {
-        transform: scale(0.75);
-        transform-origin: top left;
-        width: 133.33%;  /* 抵消缩放，使内容宽度填满屏幕 */
-    }
-
 }
 
 @media (max-width: 576px) {
